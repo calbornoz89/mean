@@ -1,0 +1,22 @@
+{
+  "name": "curso-mean-cal",
+  "version": "1.0.0",
+  "description": "Aplicacion para aprender MEAN",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calbornoz89/mean.git"
+  },
+  "author": "calbornoz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/calbornoz89/mean/issues"
+  },
+  "homepage": "https://github.com/calbornoz89/mean#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
