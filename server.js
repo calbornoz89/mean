@@ -76,22 +76,18 @@ adminRouter.get('/users',function(req, res){
 	console.log('Ya llegue a la vista de usuarios');
 	res.send('Aqui se mostraran los usuarios');
 
-})
-
-adminRouter.get('/users/:name',function(req, res){
+}).get('/users/:name',function(req, res){
 
 	res.send('Hola '+ req.name);
 
 })
 
 
-
 adminRouter.get('/login',function(req, res){
 	console.log('Accesando Login');
 	res.send('Accesando Login');
 
-})
-adminRouter.get('/login/:username/:userpassword',function(req, res){
+}).get('/login/:username/:userpassword',function(req, res){
 
 	res.send('Bienvenido:  '+ req.username + req.userpassword);
 
@@ -108,8 +104,29 @@ adminRouter.get('/posts',function(req, res){
 app.use('/admin',adminRouter);
 
 
+app.route('/account')
+.get(function(req, res){
+
+console.log('Metodo GET');
+res.send('Metodo GET');
+
+})
+.post(function(req, res){
+console.log('Metodo POST');
+res.send('Metodo POST');
+})
+.put(function(req, res){
+console.log('Metodo PUT');
+res.send('Metodo PUT');
+})
+.delete(function(req, res){
+console.log('Metodo DELETE');
+	res.send('Metodo DELETE');
+})
+
+
+
+
 app.set('port',(process.env.PORT || 5000))
-
 app.listen(app.get('port'));
-
 console.log('Here we go!');
