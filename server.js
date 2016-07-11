@@ -24,9 +24,43 @@ adminRouter.param('name', function(req, res, next, name){
 
 console.log("req.name: ",req.name);
 console.log("name: ",name);
+
 req.name = ' Heroku';
+
 next();
 
+})
+
+adminRouter.param('username', function(req, res, next, username){
+
+validUser = 'carlos';
+
+if (username == validUser ) {
+	req.username = 'CARLOS';
+	next();
+} else {
+	//console.log('FALLASTE EN USUARIO');
+	res.redirect('/error');
+}
+})
+
+
+adminRouter.param('userpassword', function(req, res, next, userpassword){
+
+validPass = 'heroku';
+
+if (userpassword == validPass ) {
+	console.log('entre');
+	req.userpassword = ' con PASSWORD';
+	next();
+} else {
+	//req.userpassword = ' sin PASSWORD';
+
+	//console.log('FALLASTE EN PASSWORD');
+	
+res.redirect('/error');
+
+}
 })
 
 
@@ -47,6 +81,19 @@ adminRouter.get('/users',function(req, res){
 adminRouter.get('/users/:name',function(req, res){
 
 	res.send('Hola '+ req.name);
+
+})
+
+
+
+adminRouter.get('/login',function(req, res){
+	console.log('Accesando Login');
+	res.send('Accesando Login');
+
+})
+adminRouter.get('/login/:username/:userpassword',function(req, res){
+
+	res.send('Bienvenido:  '+ req.username + req.userpassword);
 
 })
 
