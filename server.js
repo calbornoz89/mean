@@ -5,7 +5,8 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-var User = require('./models/user')
+var User = require('./models/user');
+var Pokemon = require('./models/pokemon')
 
 var port = process.env.PORT || 5000;
 
@@ -28,8 +29,8 @@ next();
 app.use(morgan('dev'));
 
 //DB conection
-//mongoose.connect('mongodb://localhost/pokemon');
-mongoose.connect('mongodb://admin:Enigma401@ds017862.mlab.com:17862/pokemon_cal');
+mongoose.connect('mongodb://localhost/pokemon');
+//mongoose.connect('mongodb://admin:Enigma401@ds017862.mlab.com:17862/pokemon_cal');
 
 
 //API ROUTERS
@@ -77,6 +78,125 @@ apiRouter.route('/users')
 
 })
 
+apiRouter.route('/users/:user_id')
+.get(function(req, res){
+  User.findById(req.params.user_id, function(err, user){
+    if(err) return res.send(err);
+    res.json(user);
+
+  })
+
+})
+.put(function(req, res){
+  User.findById(req.params.user_id, function(err, user){
+    if(err) return res.send(err);
+      if(req.body.name) user.name = req.body.name;
+      if(req.body.username) user.username = req.body.username;
+      if(req.body.password) user.password = req.body.password;
+
+      user.save(function(err){
+        if(err) return res.send(err);
+
+        res.json({message: 'Usuario actualizado'})
+
+      })
+
+  })
+
+})
+.delete(function(req, res){
+  User.remove({
+    _id: req.params.user_id
+
+  },function(err, user){
+    if(err) return res.send(err);
+    res.json({message: 'El usuario se ha eliminado'})
+  })
+})
+
+
+// .get(function(req, res){
+//   User.findOne({
+//     name: req.params.name
+//   }, function(err, user){
+//     if(err) return res.send(err);
+//     res.json({message: 'El encontrado'})
+//   }
+//   )
+//
+// })
+
+apiRouter.route('/pokemons')
+
+.post(function(req, res){
+  var pokemon = new Pokemon();
+  pokemon.name = req.body.name;
+  pokemon.type = req.body.type;
+
+  pokemon.save(function(err){
+    //Verified duplicate entry on pokemoname
+    if(err){
+    if(err.code == 11000){
+    return res.json({ success: false, message: 'El nombre de usuario ya existe.'})
+  }}
+  res.json({message: 'El usuario se ha creado'});
+
+})
+})
+//Get all pokemons through Get
+// URL: http://localhost:5000/api/pokemons
+.get(function(req, res){
+  Pokemon.find (function(err, pokemons){
+    if(err) return res.send(err);
+    res.json(pokemons);
+  })
+
+
+})
+
+apiRouter.route('/pokemons/:pokemon_id')
+.get(function(req, res){
+  Pokemon.findById(req.params.pokemon_id, function(err, pokemon){
+    if(err) return res.send(err);
+      res.json({message: pokemon.sayHi()});
+      
+
+
+  })
+
+})
+.put(function(req, res){
+  Pokemon.findById(req.params.pokemon_id, function(err, pokemon){
+    if(err) return res.send(err);
+      if(req.body.name) pokemon.name = req.body.name;
+      if(req.body.pokemoname) pokemon.pokemoname = req.body.pokemoname;
+
+      pokemon.save(function(err){
+        if(err) return res.send(err);
+
+        res.json({message: 'Usuario actualizado'})
+
+      })
+
+  })
+
+})
+.delete(function(req, res){
+  Pokemon.remove({
+    _id: req.params.pokemon_id
+
+  },function(err, pokemon){
+    if(err) return res.send(err);
+    res.json({message: 'El usuario se ha eliminado'})
+  })
+})
+
+
+
+
+
+
+
 //Register our Routers
 app.use('/api', apiRouter)
 
@@ -111,9 +231,9 @@ res.sendFile(path.join(__dirname) + '/index.html');
 //
 // })
 
-// adminRouter.param('username', function(req, res, next, username){
+// adminRouter.param('pokemoname', function(req, res, next, pokemoname){
 //
-// validUser = 'carlos';
+// validPokemon = 'carlos';
 //
 // if (username == validUser ) {
 // 	req.username = 'CARLOS';
