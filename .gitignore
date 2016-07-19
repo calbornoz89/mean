@@ -4,3 +4,7 @@
 .LSOverride
 Icon
 ._*
+
+data/db/*
+web/css/*
+web/js/*
