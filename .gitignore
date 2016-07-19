@@ -5,15 +5,4 @@ ehthumbs.db
 Icon?
 Thumbs.db
 
-# Node and related ecosystem
-# ==========================
-.nodemonignore
-.sass-cache/
-node_modules/
-data/
 data
-public/lib/
-app/tests/coverage/
-.bower-*/
-.idea/
-coverage/
