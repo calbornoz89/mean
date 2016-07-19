@@ -1,8 +1,18 @@
-# Mac OS X
+# OS
+# ===========
 .DS_Store
-.AppleDouble
-.LSOverride
-Icon
-._*
+ehthumbs.db
+Icon?
+Thumbs.db
 
-data/db/*
+# Node and related ecosystem
+# ==========================
+.nodemonignore
+.sass-cache/
+node_modules/
+data/
+public/lib/
+app/tests/coverage/
+.bower-*/
+.idea/
+coverage/
