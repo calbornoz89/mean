@@ -8,6 +8,7 @@ var PokemonSchema =  new Schema({
   name: {
     type: String,
     required: true,
+    default: 'no name',
     index: {
       unique: true
     }
@@ -16,6 +17,10 @@ var PokemonSchema =  new Schema({
   count: {
     type: Number,
     default: 0
+  },
+  owner:{
+    type: Schema.ObjectId,
+    ref: 'User'
   }
 });
 //Ejecuta algo antes de determinada accion

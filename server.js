@@ -133,6 +133,11 @@ apiRouter.route('/pokemons')
   pokemon.name = req.body.name;
   pokemon.type = req.body.type;
 
+  pokemon.owner = req.body.owner;
+
+
+
+
   pokemon.save(function(err){
     //Verified duplicate entry on pokemoname
     if(err){
@@ -146,12 +151,22 @@ apiRouter.route('/pokemons')
 //Get all pokemons through Get
 // URL: http://localhost:5000/api/pokemons
 .get(function(req, res){
-  Pokemon.find (function(err, pokemons){
-    if(err) return res.send(err);
-    res.json(pokemons);
+  // Pokemon.find (function(err, pokemons){
+  //   if(err) return res.send(err);
+  //   res.json(pokemons);
+  // })
+Pokemon.find ({}, function(err, pokemons){
+  User.populate(pokemons,{path:'owner', select: {name:1, username:1}, match: {username:'omur'} }, function(err, pokemons){
+      res.status(200).json(pokemons)
+
   })
-
-
+})
+// .limit(3)
+// .skip(1).limit(2)
+//.sort({name:1}) --->ordena ASC
+//.sort({name:-1}) --->ordena DESC
+// .sort({name:-1})
+.select({ name:1,type:1,owner:1})
 })
 
 apiRouter.route('/pokemons/:pokemon_id')
@@ -159,7 +174,7 @@ apiRouter.route('/pokemons/:pokemon_id')
   Pokemon.findById(req.params.pokemon_id, function(err, pokemon){
     if(err) return res.send(err);
       res.json({message: pokemon.sayHi()});
-      
+
 
 
   })
@@ -170,6 +185,7 @@ apiRouter.route('/pokemons/:pokemon_id')
     if(err) return res.send(err);
       if(req.body.name) pokemon.name = req.body.name;
       if(req.body.pokemoname) pokemon.pokemoname = req.body.pokemoname;
+      if(req.body.owner) pokemon.owner = req.body.owner;
 
       pokemon.save(function(err){
         if(err) return res.send(err);
@@ -192,8 +208,28 @@ apiRouter.route('/pokemons/:pokemon_id')
 })
 
 
+apiRouter.route('/pokemons/type/:type')
+.get(function(req, res){
+  Pokemon.find({
+    // type: /lant/
+    // type: req.params.type
+    // type : new RegExp(req.params.type,'i'),
+    $or : [{type: /Electric/i}, {type: /air/i}],
+    // count: {
+    //   //mayor que $gt
+    //   //menor que $lt
+    //   $gt: 0,
+    //   $lt: 10
+    // }
+    name:{
+      $in: ['Pigeot','Pikachu']
+    }
 
+  }, function(err, pokemons){
+    res.json(pokemons)
+  })
 
+})
 
 
 
