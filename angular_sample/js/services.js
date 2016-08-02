@@ -25,9 +25,6 @@ angular.module('myApp.services',[])
       abbr : 'CT',
       name : 'Connecticut'
     },{
-      abbr : 'AK',
-      name : 'Alaska'
-    },{
       abbr : 'DE',
       name : 'Delaware'
     },{

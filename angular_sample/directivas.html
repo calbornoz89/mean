@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular Directives</title>
+    <link rel="stylesheet" href="../angular_sample/css/base.css">
+    <script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../angular_sample/js/directives.js"></script>
+    <script type="text/javascript" src="../angular_sample/js/controller.js"></script>
+    <script type="text/javascript" src="../angular_sample/js/services.js"></script>
+    <script type="text/javascript" src="../angular_sample/js/app.js"></script>
+    <style>
+      .red{
+        background-color: red;
+        color: white;
+      }
+      .green{
+        background-color: green;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+<!-- {{myVar === "two" ? "it's true" : "it's false"}} -->
+<div ng-controller="citiesCtrl">
+
+<form name="new_city" ng-submit="submitForm()">
+  <div ng-repeat="field in fields" ng-form="new_city_form">
+    <input  type="text"
+            name="dymamic_input"
+            ng-required="field.isRequired"
+            ng-model="field.name"
+            placeholder="{{field.placeholder}}">
+
+            1. {{ new_city_form.dymamic_input.$dirty }} <br>
+              2. {{ new_city_form.dymamic_input.$invalid }} <br>
+              3. {{ new_city_form.dymamic_input.$error }} <br>
+              4. {{ new_city_form.dymamic_input.$error.required }} <br>
+
+
+    <span ng-if="new_city_form.dymamic_input.$dirty == false" class="red"> Este campo es requerido</span>
+
+
+
+   </div>
+    <button ng-disabled="new_city.$invalid" type="submit">Formulario LISTO!</button>
+    <br><br>
+    <button type="submit" >Enviar</button>
+</form>
+
+
+<a ng-href="{{myLink}}">Click me!</a>
+<a href="{{myLink}}">Click me!</a>
+
+
+
+  <div ng-class="{red: x > 5 }" ng-if="x > 5">
+      {{x > 5 ? "it's true" : "it's false"}}
+  </div>
+
+  <h2>El numero calculado es : {{ x }}</h2>
+  <button type="button" ng-click="x = generateNumber()" ng-init="x=0">Calcular Numero</button>
+
+
+
+
+
+  <hr>
+
+  <label>¿ Desea informacion ? {{ info }}</label>
+  <input type="checkbox" ng-checked="info" ng-init="info = true" ng-model="info">
+
+  <input type="text" ng-model="city.name"  >
+  <input type="text" ng-disabled="!info" ng-model="myNumber" ng-change="calculate()"  >
+  <!-- <button type="button" ng-click="searchCity()">Search</button> -->
+  <br>
+  <!-- <label>{{ city.name }}</label> -->
+  <h2>{{ result }}</h2>
+
+<select ng-model="city" ng-options="city.name for city in cities">
+  <option>{{ city.name }}</option>
+
+</select>
+
+<select>
+  <option>Opcion 1</option>
+  <option ng-selected="true">Opcion 2</option>
+
+</select>
+Ciudad seleccionada : {{ city.name }}
+
+  <ul>
+    <li ng-repeat="item in cities">
+      <a ng-click="searchCity(item.abbr)">{{item.abbr}} -
+        <span ng-if="item.abbr == city.abbr" class="red">{{item.name}}</span>
+
+      </a>
+    </li>
+  </ul>
+  <!-- <h1>{{ city.name }}</h1> -->
+  <hr>
+
+</div>
+
+
+  </body>
+</html>

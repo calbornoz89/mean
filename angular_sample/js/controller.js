@@ -1,4 +1,13 @@
 angular.module('myApp.controllers',[])
+// .run(function($rootScope,$timeout){
+//   $timeout(function(){
+//
+//     $rootScope.myLink
+//   })
+//
+//
+// })
+
 
 .controller('mainCtrl', function($scope,$filter, cityService){
 
@@ -20,11 +29,34 @@ console.log($scope.message);
 .controller('citiesCtrl', function($scope, cityService){
 
   $scope.cities = cityService.getCities();
+
+
+  $scope.myLink = "http://google.com.pe"
+
+  $scope.fields = [
+    {placeholder: 'abbr', isRequired:true},
+    {placeholder: 'name', isRequired:true}
+
+  ]
+
   $scope.searchCity = function(cityAbbr){
 
     $scope.city = cityService.getCity(cityAbbr)[0];
     console.log(cityService.getCity(cityAbbr)[0]);
-  }
+    }
+
+    $scope.calculate = function(){
+      $scope.result = Number($scope.myNumber) * 5;
+    }
+
+    $scope.generateNumber = function(){
+      return Math.floor((Math.random()*10)+1)
+    }
+
+
+
+
+
 
 })
 
