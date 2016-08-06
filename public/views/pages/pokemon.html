@@ -1,7 +1,42 @@
-<div class="">
+<div ng-controller="pokemonCtrl">
   <h1>Pokemon Page</h1>
-  <p>
-    {{ pokemon.message }}
-  </p>
 
+    <!-- {{ pokemon.message }} -->
+<!-- <div flex-item="6" class="mt++"> -->
+
+<div class="p+" flex-container="row" flex-gutter="24">
+    <div flex-item>
+        <div class="card">
+            <div class="toolbar">
+                <lx-search-filter>
+                    <input type="text" ng-model="pokemon.search">
+                </lx-search-filter>
+            </div>
+        </div>
+    </div>
 </div>
+
+    <div class="p+" flex-container="row" flex-gutter="24" flex-wrap>
+          <div flex-item="6" ng-repeat="pokemon in pokemon.pokemons | filter:pokemon.search">
+              <ul class="list mt++">
+                  <li class="list-row list-row--has-separator">
+                      <div class="list-row__primary">
+                          <img src="/bd_pokemon/pokemons/{{pokemon.name}}.jpg" width="50" height="50" class="img-round">
+                      </div>
+
+                      <div class="list-row__content">
+                          <span>{{ pokemon.name}}</span>
+                      </div>
+
+                      <div class="list-row__secondary">
+                        <lx-icon lx-id="information" lx-size="xs" lx-color="grey" lx-type="flat"></lx-icon>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+      </div>
+
+    <!-- {{ pokemon.pokemons }} -->
+
+
+<!-- </div> -->
