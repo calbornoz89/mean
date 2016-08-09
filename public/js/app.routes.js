@@ -29,8 +29,6 @@ angular.module('pokeApp.routes',['ngRoute'])
   })
 
 
-
-
 .otherwise({
   redirectTo:'/'
 })

@@ -1,4 +1,4 @@
-<div class="p+">
+<!-- <div class="p+">
     <lx-button lx-type="fab"><i class="mdi mdi-plus"></i></lx-button>
 </div>
 <div class="p+" flex-container="row" flex-gutter="24" flex-wrap>
@@ -75,4 +75,43 @@
   </div>
 
 
+</div> -->
+
+<div ng-controller="userCtrl">
+  <h1>Pokemon Page</h1>
+
+    <!-- {{ pokemon.message }} -->
+<!-- <div flex-item="6" class="mt++"> -->
+
+<div class="p+" flex-container="row" flex-gutter="24">
+    <div flex-item>
+        <div class="card">
+            <div class="toolbar">
+                <lx-search-filter>
+                    <input type="text" ng-model="user.search">
+                </lx-search-filter>
+            </div>
+        </div>
+    </div>
 </div>
+
+    <div class="p+" flex-container="row" flex-gutter="24" flex-wrap>
+          <div flex-item="6" ng-repeat="item in user.users | filter:user.search">
+              <ul class="list mt++">
+                  <li class="list-row list-row--has-separator">
+
+                      <div class="list-row__content">
+                          <span>{{ item.name}}</span>
+                      </div>
+
+                      <div class="list-row__secondary">
+                        <lx-icon lx-id="information" lx-size="xs" lx-color="grey" lx-type="flat"></lx-icon>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+      </div>
+
+    <!-- {{ pokemon.pokemons }} -->
+
+<!-- </div> -->
