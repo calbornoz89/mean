@@ -66,45 +66,45 @@ if(!user) {
 })
 
 //Middleware to verify a token
-// apiRouter.use(function(req, res, next){
-//
-// console.log('Alguien ha entrado a la matrix!');
-// var token = req.body.token || req.query.token || req.headers['x-access-token'];
-//
-// if (token){
-//   //verify token
-//   jwt.verify(token, superSecret, function(err, decoded){
-//
-//     if(err){
-//       return res.json({
-//         success: false,
-//         message: 'Fallo la autenticacion del token.'
-//       })
-//     } else{
-//       console.log(decoded);
-//       req.decoded = decoded
-//       next();
-//     }
-//
-//   })
-// }else {
-//   return res.status(403).send({
-//
-//     success: false,
-//     message: 'NO se envio el token.'
-//
-//   })
-// }
-//
-// })
-// apiRouter.get('/',function(req, res){
-//
-// res.json({
-//
-//   message: "Welcome to the Matrix!"
-// })
-//
-// })
+apiRouter.use(function(req, res, next){
+
+console.log('Alguien ha entrado a la matrix!');
+var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+if (token){
+  //verify token
+  jwt.verify(token, superSecret, function(err, decoded){
+
+    if(err){
+      return res.json({
+        success: false,
+        message: 'Fallo la autenticacion del token.'
+      })
+    } else{
+      console.log(decoded);
+      req.decoded = decoded
+      next();
+    }
+
+  })
+}else {
+  return res.status(403).send({
+
+    success: false,
+    message: 'NO se envio el token.'
+
+  })
+}
+
+})
+apiRouter.get('/',function(req, res){
+
+res.json({
+
+  message: "Welcome to the Matrix!"
+})
+
+})
 
 //Accesed at GET http://localhost:5000/api
 apiRouter.get('/me', function(req, res){
@@ -152,41 +152,41 @@ apiRouter.route('/users')
 
 })
 
-apiRouter.route('/users/:user_id')
-.get(function(req, res){
-  User.findById(req.params.user_id, function(err, user){
-    if(err) return res.send(err);
-    res.json(user);
-
-  })
-
-})
-.put(function(req, res){
-  User.findById(req.params.user_id, function(err, user){
-    if(err) return res.send(err);
-      if(req.body.name) user.name = req.body.name;
-      if(req.body.username) user.username = req.body.username;
-      if(req.body.password) user.password = req.body.password;
-
-      user.save(function(err){
-        if(err) return res.send(err);
-
-        res.json({message: 'Usuario actualizado'})
-
-      })
-
-  })
-
-})
-.delete(function(req, res){
-  User.remove({
-    _id: req.params.user_id
-
-  },function(err, user){
-    if(err) return res.send(err);
-    res.json({message: 'El usuario se ha eliminado'})
-  })
-})
+// apiRouter.route('/users/:user_id')
+// .get(function(req, res){
+//   User.findById(req.params.user_id, function(err, user){
+//     if(err) return res.send(err);
+//     res.json(user);
+//
+//   })
+//
+// })
+// .put(function(req, res){
+//   User.findById(req.params.user_id, function(err, user){
+//     if(err) return res.send(err);
+//       if(req.body.name) user.name = req.body.name;
+//       if(req.body.username) user.username = req.body.username;
+//       if(req.body.password) user.password = req.body.password;
+//
+//       user.save(function(err){
+//         if(err) return res.send(err);
+//
+//         res.json({message: 'Usuario actualizado'})
+//
+//       })
+//
+//   })
+//
+// })
+// .delete(function(req, res){
+//   User.remove({
+//     _id: req.params.user_id
+//
+//   },function(err, user){
+//     if(err) return res.send(err);
+//     res.json({message: 'El usuario se ha eliminado'})
+//   })
+// })
 
 
 // .get(function(req, res){

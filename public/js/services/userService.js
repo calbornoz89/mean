@@ -19,23 +19,26 @@ var _user = undefined;
         _users = deferred.promise
     }
     return _users;
-
-  }
-  this.get = function(id){
-    return _user;
-
   }
 
-  this.create = function(id){
-    return _user;
-  }
+  // CREATE
+    // this.create = function(){
+    //       $http.post('/api/users', todoData);
+    //     }
 
-  this.update = function(id){
-    return _user;
-  }
 
-  this.delete = function(id){
-    return _user;
-  }
+
+        // return {
+        //             get : function() {
+        //                 return $http.get('/api/todos');
+        //             },
+        //             create : function(todoData) {
+        //                 return $http.post('/api/todos', todoData);
+        //             },
+        //             delete : function(id) {
+        //                 return $http.delete('/api/todos/' + id);
+        //             }
+
+
 
 })
